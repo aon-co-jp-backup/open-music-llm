@@ -19,17 +19,20 @@
 GPU4〜16枚規模で現実的、詳細はCLAUDE.md)またはライセンス許諾済みの別モデルへの切り替えが
 必要になる——**この警告を実際に出す仕組みはまだ未実装**(次回の課題)。
 
-## 現状(2026-09-26)
+## 現状(2026-09-27)
 
-**Python環境構築まで完了、実際の音楽生成は未検証のまま中断。** 次回は`python/generate.py`
-の実行から再開すること(環境固有の問題は[CLAUDE.md](CLAUDE.md)参照)。
+**実際の音楽生成を確認済み。** `facebook/musicgen-small`で"gentle lo-fi piano melody"から
+5.06秒・32kHzのWAVを生成し、`ffmpeg volumedetect`で無音でない実音声(mean -23.1dB /
+max -6.1dB)であることを確認した。環境固有の問題(`transformers`のimportが遅い件)は
+`USE_TF=0 USE_FLAX=0`環境変数指定で回避できた(詳細は[CLAUDE.md](CLAUDE.md)参照)。
 
-## 使い方(予定、生成自体は未検証)
+## 使い方
 
 ```bash
 "C:\Users\<user>\AppData\Local\Programs\Python\Python313\python.exe" -m venv .venv
 .venv\Scripts\python.exe -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 .venv\Scripts\python.exe -m pip install "transformers>=4.31.0" scipy
 
+$env:USE_TF="0"; $env:USE_FLAX="0"
 .venv\Scripts\python.exe python\generate.py "gentle lo-fi piano melody" out.wav
 ```
