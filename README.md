@@ -17,9 +17,18 @@
 `facebook/musicgen-*`の学習済み重みは**CC-BY-NC 4.0(非商用限定)**。現状は非商用利用のみ
 を前提に開発している。商用化を検討する段階になったら、自前学習(狭い領域限定ならコンシューマ
 GPU4〜16枚規模で現実的、詳細はCLAUDE.md)またはライセンス許諾済みの別モデルへの切り替えが
-必要になる——**この警告を実際に出す仕組みはまだ未実装**(次回の課題)。
+必要になる。**警告機構は実装済み**(下記「非商用利用の確認」参照)——ただし商用/非商用の
+実際の利用目的を技術的に検証する手段は無いため、あくまで利用者自身の明示的な確認を毎回
+要求する形にとどまる(正直な開示)。
 
-## 現状(2026-09-27)
+## 非商用利用の確認(2026-09-28実装)
+
+`python/generate.py`は、実行のたびにCC-BY-NC 4.0のライセンス通知を表示し、
+`--confirm-non-commercial-use`(または環境変数`OPEN_MUSIC_LLM_NON_COMMERCIAL_USE=1`)が
+無ければ生成を拒否する(exit code 1)。重い`torch`/`transformers`のimportは、この確認が
+通った後に行うため、未確認時は無駄な待ち時間なしに即座にエラーとなる。
+
+## 現状(2026-09-27、生成確認/2026-09-28、警告機構実装)
 
 **実際の音楽生成を確認済み。** `facebook/musicgen-small`で"gentle lo-fi piano melody"から
 5.06秒・32kHzのWAVを生成し、`ffmpeg volumedetect`で無音でない実音声(mean -23.1dB /
@@ -34,5 +43,5 @@ max -6.1dB)であることを確認した。環境固有の問題(`transformers`
 .venv\Scripts\python.exe -m pip install "transformers>=4.31.0" scipy
 
 $env:USE_TF="0"; $env:USE_FLAX="0"
-.venv\Scripts\python.exe python\generate.py "gentle lo-fi piano melody" out.wav
+.venv\Scripts\python.exe python\generate.py --confirm-non-commercial-use "gentle lo-fi piano melody" out.wav
 ```
