@@ -45,3 +45,7 @@ max -6.1dB)であることを確認した。環境固有の問題(`transformers`
 $env:USE_TF="0"; $env:USE_FLAX="0"
 .venv\Scripts\python.exe python\generate.py --confirm-non-commercial-use "gentle lo-fi piano melody" out.wav
 ```
+
+---
+
+作者 / Author: 石塚正浩（MASAHIRO ISHIZUKA） (https://github.com/aon-co-jp)
