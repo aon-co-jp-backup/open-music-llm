@@ -1,3 +1,5 @@
+> Latest translations / 翻訳の最新版: [0-LATEST-TRANSLATIONS.md](0-LATEST-TRANSLATIONS.md)
+
 # open-music-llm
 
 **MusicGen**([facebookresearch/audiocraft](https://github.com/facebookresearch/audiocraft)、
